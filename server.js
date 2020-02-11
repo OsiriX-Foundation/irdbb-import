@@ -5,6 +5,8 @@ const http = require('http');
 const hostname = '0.0.0.0';
 const port = 8080;
 
+const irdbbToken = 'LKSoDuZVl2';
+
 const semanticTranslator = 'semantictranslator';
 const semanticTranslatorPort = 8090;
 const semanticTranslatorPath = '/importKheopsSR';
@@ -23,12 +25,24 @@ const server = http.createServer((request, res) => {
     });
     request.on('end', () => {
       const requestBody = JSON.parse(bodyData);
+
+      if (requestBody.source.capability_token !== undefined
+        && requestBody.source.capability_token.id === irdbbToken) {
+        console.info('Skipping series sent by the IRDBB token');
+        return;
+      }
+
       const updatedStudy = requestBody.updated_study;
       const updatedSeries = updatedStudy.series;
 
       const studyIntanceUID = updatedStudy.study_uid;
 
       updatedSeries.forEach((series) => {
+        if (series.modality !== 'SR') {
+          console.info(`Skipping modality ${series.modality}`);
+          return;
+        }
+
         const seriesIntanceUID = series.series_uid;
 
         const requestOptions = {

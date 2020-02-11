@@ -63,6 +63,12 @@ const server = http.createServer((request, res) => {
         sendRequest.end();
       });
     });
+
+    res.statusCode = 204;
+    res.end();
+  } else {
+    res.statusCode = 405;
+    res.end();
   }
 });
 

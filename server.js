@@ -2,7 +2,6 @@
 
 const http = require('http');
 
-
 const hostname = '0.0.0.0';
 const port = 8080;
 
@@ -10,7 +9,7 @@ const semanticTranslator = 'semantictranslator';
 const semanticTranslatorPort = 8080;
 const semanticTranslatorPath = 'importKheopsSR';
 
-const pacs = 'semantictranslator';
+const pacs = 'pacsarc';
 const pacsPort = 8080;
 const pacsDICOMwebPath = '/dcm4chee-arc/aets/DCM4CHEE/rs';
 

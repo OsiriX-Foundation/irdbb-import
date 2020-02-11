@@ -6,7 +6,7 @@ const hostname = '0.0.0.0';
 const port = 8080;
 
 const semanticTranslator = 'semantictranslator';
-const semanticTranslatorPort = 8080;
+const semanticTranslatorPort = 8090;
 const semanticTranslatorPath = 'importKheopsSR';
 
 const pacs = 'pacsarc';
@@ -57,7 +57,7 @@ const server = http.createServer((request, res) => {
           console.info(`Error: ${err.message}`);
         });
 
-        const seriesURL = `${pacs}:${pacsPort}//${pacsDICOMwebPath}/studies/${studyIntanceUID}/series/${seriesIntanceUID}`; 
+        const seriesURL = `${pacs}:${pacsPort}//${pacsDICOMwebPath}/studies/${studyIntanceUID}/series/${seriesIntanceUID}`;
 
         sendRequest.write(seriesURL);
         sendRequest.end();

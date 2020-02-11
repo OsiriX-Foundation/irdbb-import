@@ -7,7 +7,7 @@ const port = 8080;
 
 const semanticTranslator = 'semantictranslator';
 const semanticTranslatorPort = 8090;
-const semanticTranslatorPath = 'importKheopsSR';
+const semanticTranslatorPath = '/importKheopsSR';
 
 const pacs = 'pacsarc';
 const pacsPort = 8080;
@@ -32,7 +32,7 @@ const server = http.createServer((request, res) => {
         const seriesIntanceUID = series.series_uid;
 
         const requestOptions = {
-          host: semanticTranslator,
+          hostname: semanticTranslator,
           port: semanticTranslatorPort,
           path: semanticTranslatorPath,
           method: 'POST',
@@ -49,7 +49,7 @@ const server = http.createServer((request, res) => {
           });
 
           response.on('end', () => {
-            console.info(`Called Semantic Translator to import DICOM series. (${res.statusCode})`);
+            console.info(`Called Semantic Translator to import DICOM series. (${response.statusCode})`);
             console.info();
             console.info(data);
           });
@@ -57,7 +57,9 @@ const server = http.createServer((request, res) => {
           console.info(`Error: ${err.message}`);
         });
 
-        const seriesURL = `${pacs}:${pacsPort}//${pacsDICOMwebPath}/studies/${studyIntanceUID}/series/${seriesIntanceUID}`;
+        const seriesURL = `http://${pacs}:${pacsPort}${pacsDICOMwebPath}/studies/${studyIntanceUID}/series/${seriesIntanceUID}`;
+
+        console.info(`seriesURL: ${seriesURL}`);
 
         sendRequest.write(seriesURL);
         sendRequest.end();

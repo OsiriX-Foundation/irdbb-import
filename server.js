@@ -23,8 +23,8 @@ const server = http.createServer((request, res) => {
     });
     request.on('end', () => {
       const requestBody = JSON.parse(bodyData);
-      const updatedStudy = requestBody.updated_study.series;
-      const updatedSeries = requestBody.updated_study.series;
+      const updatedStudy = requestBody.updated_study;
+      const updatedSeries = updatedStudy.series;
 
       const studyIntanceUID = updatedStudy.study_uid;
 

@@ -5,7 +5,11 @@ const http = require('http');
 const hostname = '0.0.0.0';
 const port = 8080;
 
-const irdbbToken = 'LKSoDuZVl2';
+const irdbbToken = process.env.IRDBB_TOKEN;
+if (!irdbbToken) {
+  console.error('Environment variable IRDBB_TOKEN not set');
+  return;
+}
 
 const semanticTranslator = 'semantictranslator';
 const semanticTranslatorPort = 8090;
